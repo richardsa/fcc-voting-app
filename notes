@@ -1,0 +1,13 @@
+c9 url: https://fcc-voting-app-richardsa.c9users.io/
+
+
+start mongodb 
+ mongod --smallfiles
+
+multer: 
+npm install --save multer
+
+run node server
+ node server.js 
+ 
+
