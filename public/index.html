@@ -3,77 +3,111 @@
 <html>
 
 <head>
-	<title>Voting App - FreeCodeCamp</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title>Voting App - FreeCodeCamp</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
+
 <body>
-	<!--begin nav menu -->
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+  <!--begin nav menu -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-				<a class="navbar-brand" href="#">Richie's FCC Voting App</a>
-			</div>
+        <a class="navbar-brand" href="#">Richie's FCC Voting App</a>
+      </div>
 
-			<div class="collapse navbar-collapse" id="main-navbar-collapse">
+      <div class="collapse navbar-collapse" id="main-navbar-collapse">
 
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/">Home</a></li>
-					<li>
-						<a href="/auth/github">
-							<div class="btn" id="login-btn">
-								<img src="/public/img/github_32px.png" alt="github logo" />
-								<p>LOGIN WITH GITHUB</p>
-							</div>
-						</a>
-					</li>
-					<li><a href="#portfolio">Portolio</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!--end nav menu -->
-	<div class="jumbotron text-center home main-section">
-		<div class="container">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">Home</a></li>
+          <li id="profileLink"></li>
+          <li id="loginButton"></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--end nav menu -->
+  <div class="jumbotron text-center home main-section">
+    <div class="container">
 
-			
-				<h1>Richie's FCC Voting App</h1>
-				<a href="/auth/github">
-					<div class="btn" id="login-btn">
-						<img src="/public/img/github_32px.png" alt="github logo" />
-						LOGIN WITH GITHUB
-					</div>
-				</a>
-			
-		</div>
-{% if login %}
-<button>logout</button>
-{% else %} 
-<button>login</button>
-{% endif %}
-	</div>
-	<div class="container">
-		<div class="row">
 
-		</div>
-	</div>
+      <h1>Richie's FCC Voting App</h1>
+      <a href="/auth/github">
+        <div class="btn" id="login-btn">
+          <img src="/public/img/github_32px.png" alt="github logo" /> LOGIN WITH GITHUB
+        </div>
+      </a>
 
-	<script type="text/javascript" src="/controllers/sizeController.client.js"></script>
+    </div>
+    
+  </div>
+  <div class="container">
+    <div class="row">
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="common/ajax-functions.js"></script>
+  <script type="text/javascript" src="controllers/clickController.client.js"></script>
+  <script type="text/javascript" src="controllers/userController.client.js"></script>
 
 </body>
 
 </html>
+
+<!--
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+        <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <header>
+        <p>Welcome, <span id="display-name"></span>!</p>
+        <a class="menu" href="/profile">Profile</a>
+       
+        <p>|</p>
+        <p><span id="loginButton"></span></p>
+    </header>
+
+    <body>
+        <div class="container">
+            <img src="/public/img/clementine_150.png" />
+            <br />
+            <p class="clementine-text">Clementine.js</p>f
+        </div>
+
+        <div class="container">
+            <p>You have clicked the button <span id="click-nbr"></span> times.</p>
+            <br />
+            <div class="btn-container">
+                <button type="submit" class="btn btn-add">CLICK ME!</button>
+                <button class="btn btn-delete">RESET</button>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="common/ajax-functions.js"></script>
+        <script type="text/javascript" src="controllers/clickController.client.js"></script>
+        <script type="text/javascript" src="controllers/userController.client.js"></script>
+    </body>
+
+</html>
+-->

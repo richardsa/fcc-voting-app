@@ -9,14 +9,14 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.send(JSON.stringify({ error: "you are not logged in." }))
 		}
 	}
 
 	var clickHandler = new ClickHandler();
 
 	app.route('/')
-		.get( function (req, res) {
+		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 
