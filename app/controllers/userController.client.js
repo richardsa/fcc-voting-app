@@ -15,6 +15,7 @@
 
   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function(data) {
     console.log(data.length)
+    console.log(data);
     var userObject = JSON.parse(data);
     if (userObject.hasOwnProperty('error')) {
       console.log('yeah bruh');
@@ -23,7 +24,7 @@
     } else {
       document.querySelector("#loginButton").innerHTML = '<a href="/logout">Logout</a>'
       document.querySelector("#profileLink").innerHTML = '<a href="/profile">Profile</a>'
-
+      document.querySelector("#newPollParagraph").innerHTML = 'New! <a href="/new-poll">Create</a> your own poll!'
 
       // var userObject = JSON.parse(data);
 

@@ -1,7 +1,8 @@
 'use strict';
 var Users = require('../models/users.js');
+var Polls = require('../models/polls.js');
 
-function clickHandler() {
+function pollHandler() {
 
   this.addPoll = function(req,res){
     
@@ -15,11 +16,10 @@ function clickHandler() {
       pollOptions2[x] = 0;
     }
 		console.log("full object " + JSON.stringify(pollOptions2));
-    Users
-      .findOneAndUpdate({
-        'github.id': req.github.github.id
-      },   { $push: { polls: { pollName: pollName1, pollOptions: pollOptions2}} 
-    })
+   /* Polls
+      .save({},  {
+        pollName: pollName1, pollOptions: pollOptions2, githubId: req.github.github.id
+      })
 
       .exec(function(err, result) {
         if (err) {
@@ -29,20 +29,29 @@ function clickHandler() {
         var x = JSON.stringify(result);
         console.log("ird" + result.polls);
         return;
-      });
+      });*/
+      var newDoc = new Polls({ pollName: pollName1, pollOptions: pollOptions2, githubId: req.github.github.id });
+      newDoc.save(function (err, doc) {
+                        if (err) { throw err; }
+
+                        //res.json(doc);
+                        var x = JSON.stringify(doc);
+                        console.log(x);
+                        return;
+                    })
     
   }
   
    this.getPolls = function(req, res) {
-    Users
+    Polls
       .find({},  {
         '_id': false
       })
-      .exec(function(err, result) {
+      .lean().exec(function(err, result) {
         if (err) {
           throw err;
         }
-        console.log("results " + result);
+        console.log("results " + JSON.stringify(result));
         res.json(result);
       });
   };
@@ -117,4 +126,4 @@ function clickHandler() {
 }
 
 
-module.exports = clickHandler;
+module.exports = pollHandler;

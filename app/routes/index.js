@@ -1,18 +1,21 @@
 'use strict';
 
 var path = process.cwd();
+var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
-
+var bodyParser = require('body-parser');
 module.exports = function (app, passport) {
-
+app.use(bodyParser.urlencoded({ extended: true })); 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
+			
 			res.send(JSON.stringify({ error: "you are not logged in." }))
 		}
 	}
 
+	var pollHandler = new PollHandler();
 	var clickHandler = new ClickHandler();
 
 	app.route('/')
@@ -35,6 +38,31 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/profile.html');
 		});
+		
+		app.route('/new-poll')
+		.get(isLoggedIn, function (req, res) {
+			res.sendFile(path + '/public/new-poll.html');
+		});
+		
+		app.route('/new-poll/api')
+		.post(isLoggedIn, function (req, res) {
+			console.log(req.body);
+			var x = req.body;
+			x['github'] = req.user;
+			console.log(x);
+			console.log(req.user)
+			pollHandler.addPoll(x);
+			res.redirect('/new-poll');
+			//res.end(JSON.stringify(req.body))
+			//res.end("Your file size is " + req.body["poll-options"] + " bytes.");
+		});
+		/*.get(isLoggedIn, function (req, res) {
+			 var pollName = req.param('poll-name');
+			 var pollOptions = req.param('poll-options').split(',');
+			var x = req;
+			console.log(pollName);
+			res.send(pollOptions);
+		});*/
 
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
@@ -51,7 +79,9 @@ module.exports = function (app, passport) {
 		}));
 
 	app.route('/api/:id/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
+		.get(pollHandler.getPolls)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
+	app.route('/testing')
+	.get(clickHandler.getDrop)
 };
