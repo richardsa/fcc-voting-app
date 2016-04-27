@@ -43,6 +43,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/new-poll.html');
 		});
+		// vote on polls route
+		app.route('/vote/api')
+		.post(function (req, res) {
+			console.log(req.body);
+			pollHandler.vote(req.body);
+			//res.send(JSON.stringify({ received: "You're vote has been received" }))
+		});
 		
 		app.route('/new-poll/api')
 		.post(isLoggedIn, function (req, res) {
@@ -77,11 +84,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
+		
+	//get invididual polls display client
+	app.route('/polls/:id')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/polls.html');
+		});
+		
+		//get invididual polls server
+	app.route('/poll/:id')
+		.get(pollHandler.getPoll)
+		
 
 	app.route('/api/:id/clicks')
 		.get(pollHandler.getPolls)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
 	app.route('/testing')
-	.get(clickHandler.getDrop)
+	.get(pollHandler.getDrop)
 };

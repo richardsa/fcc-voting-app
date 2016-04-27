@@ -5,7 +5,7 @@
   var allPolls = document.querySelector('#allPolls');
   var apiUrl = appUrl + '/api/:id/clicks';
 
-  function displayAllPolls(data) {
+ function displayAllPolls(data) {
 console.log(data);
 //var pollsObject = data['polls'];
  //var pollsObject = data;
@@ -17,9 +17,10 @@ console.log(data);
     for (var i = 0; i < pollsObject.length; i++){
         
        var pollName = pollsObject[i]['pollName'];
+       var pollUrl = "polls/" + pollsObject[i]['pollId'];
        console.log("I " + pollsObject[i]);
        //console.log(pollName);
-       var pollNameSnippet = "<div class='pollName'><a href='#'>" + pollName + "</a></div>";
+       var pollNameSnippet = "<div class='pollName'><a href=" + pollUrl + ">" + pollName + "</a></div>";
        output += pollNameSnippet;
        
     }
@@ -27,7 +28,7 @@ console.log(data);
     //        console.log('yeah bruh');
     //return;
     //} else {
-   console.log("co " + pollsObject);
+   console.log("co " + JSON.stringify(pollsObject));
     allPolls.innerHTML = output;
     //}
   }
