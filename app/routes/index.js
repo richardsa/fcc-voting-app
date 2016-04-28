@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		.post(function (req, res) {
 			console.log(req.body);
 			pollHandler.vote(req.body);
-			//res.send(JSON.stringify({ received: "You're vote has been received" }))
+			res.send(JSON.stringify({ received: "You're vote has been received" }))
 		});
 		
 		app.route('/new-poll/api')

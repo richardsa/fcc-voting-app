@@ -118,26 +118,28 @@ console.log(counterID);
         res.json(result);
       });
   };
-/////////////////////////////////
+
   this.vote = function(req, res){
     console.log(req);
     var pollId = req.pollID;
-    var voteOption = 'pollOptions[' + req.optradio + ']';
-    console.log
-    console.log(pollId + " " + voteOption);
+    var option = 'pollOptions.' + req.optradio;
+    var voteOption = {};
+    voteOption[option] = 1;
     
+    console.log(pollId + " " + JSON.stringify(voteOption));
+    //var query = {};
+    var test = 'pollId';
+   // query[name] = value;
      Polls
-      .findOne({
+      .findOneAndUpdate({
         'pollId': pollId
-      }, {   $inc: {
-       voteOption: 1}
-     })
+      }, {   $inc: voteOption } ,{'new': true})
       .exec(function(err, result) {
         if (err) {
           throw err;
         }
         console.log("results " + JSON.stringify(result));
-        res.json(result);
+       // res.send(results.pollOptions);
       });
     
   }

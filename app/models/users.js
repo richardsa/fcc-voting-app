@@ -9,11 +9,7 @@ var User = new Schema({
 		displayName: String,
 		username: String,
       publicRepos: Number
-	}/*,
-   polls: [{
-      pollName: String,
-      pollOptions: Schema.Types.Mixed,
-   }]*/
+	}
 });
 
 module.exports = mongoose.model('User', User);
