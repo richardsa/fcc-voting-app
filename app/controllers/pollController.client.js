@@ -13,22 +13,23 @@ console.log(data);
     
   // pollsObject = JSON.stringify(pollsObject);
     var output = "";
-  
+    output += "<table class='table table-bordered'>"
     for (var i = 0; i < pollsObject.length; i++){
         
        var pollName = pollsObject[i]['pollName'];
        var pollUrl = "polls/" + pollsObject[i]['pollId'];
        console.log("I " + pollsObject[i]);
        //console.log(pollName);
-       var pollNameSnippet = "<div class='pollName'><a href=" + pollUrl + ">" + pollName + "</a></div>";
+       var pollNameSnippet = "<tr class='pollName'><td><a href=" + pollUrl + ">" + pollName + "</a></td></tr>";
        output += pollNameSnippet;
        
     }
+    output += "</table>"
     //    if(pollsObject.hasOwnProperty('error')){
     //        console.log('yeah bruh');
     //return;
     //} else {
-   console.log("co " + JSON.stringify(pollsObject));
+   
     allPolls.innerHTML = output;
     //}
   }

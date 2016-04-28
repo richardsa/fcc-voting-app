@@ -46,9 +46,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		// vote on polls route
 		app.route('/vote/api')
 		.post(function (req, res) {
-			console.log(req.body);
+			
+			var poll = '/polls/' + req.body.pollID;
+			console.log("ppoll " + poll);
 			pollHandler.vote(req.body);
-			res.send(JSON.stringify({ received: "You're vote has been received" }))
+			res.redirect(poll);
 		});
 		
 		app.route('/new-poll/api')
