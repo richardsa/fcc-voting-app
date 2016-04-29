@@ -6,6 +6,7 @@
     var id = window.location.pathname.slice(6);
     console.log(id);
     var apiUrl = appUrl + '/poll' + id;
+    
 
     function displayPoll(data) {
         console.log("input " + data);

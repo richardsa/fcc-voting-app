@@ -97,7 +97,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 	app.route('/poll/:id')
 		.get(pollHandler.getPoll)
 		
-
+	
+		app.route('getProfilePolls')
+		.get(isLoggedIn, pollHandler.getPolls)
+		
+			
+		
+		
 	app.route('/api/:id/clicks')
 		.get(pollHandler.getPolls)
 		.post(isLoggedIn, clickHandler.addClick)

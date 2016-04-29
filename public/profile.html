@@ -34,6 +34,7 @@
           <li><a href="/">Home</a></li>
           <li id="profileLink"></li>
           <li id="loginButton"></li>
+          <li id="newPollLink"></li>
         </ul>
       </div>
     </div>
@@ -52,9 +53,16 @@
 				<p id="newPollParagraph"></p>
 			</div>
 		</div>
+		<div class="container">
+    <div class="row">
+      <h3>Your Polls:</h3>
+      <div id="allPolls"></div>
+    </div>
+  </div>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<script type="text/javascript" src="controllers/userPollController.client.js"></script>
 	</body>
 
 </html>

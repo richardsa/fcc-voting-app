@@ -93,19 +93,31 @@ console.log(counterID);
         if (err) {
           throw err;
         }
-        console.log("results " + JSON.stringify(result));
+        console.log("results1 " + JSON.stringify(result));
         res.json(result);
       });
   };
+ this.getProfilePolls = function(req, res) {
+  console.log(req);
+  Polls
+    .find({'githubId': req})
+    .lean().exec(function(err, result) {
+      if (err) {
+        throw err;
+      }
+     
+      res.json(result);
+    });
+};
 
   this.getPoll = function(req, res) {
-    console.log('yo yo yo');
+    
     //res.send("Both tables Cleared");
     console.log(req.params);
     var pollId = req.params.id;
     // pollId = mongoose.mongo.BSONPure.ObjectID.toHexString(pollId);
     //pollId = Polls.db.bson_serializer.ObjectID.createFromHexString(pollId);
-    console.log(pollId);
+    
     Polls
       .findOne({
         'pollId': pollId
