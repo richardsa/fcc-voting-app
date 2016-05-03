@@ -1,7 +1,11 @@
 /*custom css*/
 #login-btn{font-size:14px;}
 .pollName{min-height: 50px;}
+#shareButton {font-size:14px; background-color: #3366CC; padding:10px; display:inline-block;}
+#shareButton a {color: #ffffff; text-decoration: none; border-radius: 30%;}
+
 /********* Fonts **********/
+
 
 @font-face {
   font-family: 'Roboto';

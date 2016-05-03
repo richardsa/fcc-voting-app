@@ -110,6 +110,22 @@ console.log(counterID);
     });
 };
 
+this.getDelete = function (req,res){
+  var githubId =  req.user.github.id
+   Polls
+      .find({
+        'githubId': githubId
+      }).select('pollId -_id')
+      .exec(function(err, result) {
+        if (err) {
+          throw err;
+        }
+        console.log("results " + JSON.stringify(result));
+        res.json(result);
+      });
+  
+}
+
   this.getPoll = function(req, res) {
     
     //res.send("Both tables Cleared");

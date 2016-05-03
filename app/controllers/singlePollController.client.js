@@ -3,10 +3,27 @@
 (function() {
 
     var pollInfo = document.querySelector('#pollInfo');
-    var id = window.location.pathname.slice(6);
+    var id = window.location.pathname.slice(7);
     console.log(id);
-    var apiUrl = appUrl + '/poll' + id;
-    
+    var apiUrl = appUrl + '/poll/' + id;
+    var deleteUrl =  appUrl + '/profile/delete';
+
+    function deletePoll(data){
+      var polls = [];
+      var pollsObject = JSON.parse(data);
+      var displayDelete = false;
+      for (var prop in pollsObject) {
+        if (prop == id){
+          console.log("yeah it do " + prop);
+          displayDelete = true;
+          break;
+        } 
+      }
+      if (displayDelete){
+        document.querySelector("#deleteButton").innerHTML = '<a href="/delete">delete me</a>'
+      }
+      console.log("yeah buddy");
+    }
 
     function displayPoll(data) {
         console.log("input " + data);
@@ -61,6 +78,7 @@
     }
 
     ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, displayPoll));
+    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', deleteUrl, deletePoll));
 
     /*  addButton.addEventListener('click', function() {
 

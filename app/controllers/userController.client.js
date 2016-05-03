@@ -30,7 +30,7 @@
 
       
       if (shareButton !== null) {
-        document.querySelector('#shareButton').innerHTML = '<a href="mailto: ?subject=Check%20Out%20This%20Poll&body=Check%20Out%20This%20Poll"' + shareUrl + " >Your visible link text</a>"
+        document.querySelector('#shareButton').innerHTML = '<a href="mailto:?subject=Check%20Out%20This%20Poll&body=Check%20Out%20This%20Poll%0A' + shareUrl + '">Share Poll!</a>'
       }
       if (displayName !== null) {
         updateHtmlElement(userObject, displayName, 'displayName');
