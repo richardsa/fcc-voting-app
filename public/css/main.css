@@ -1,9 +1,27 @@
 /*custom css*/
 #login-btn{font-size:14px;}
 .pollName{min-height: 50px;}
-#shareButton {font-size:14px; background-color: #3366CC; padding:10px; display:inline-block;}
-#shareButton a {color: #ffffff; text-decoration: none; border-radius: 30%;}
 
+
+.fa-facebook,.social-icons .fa-facebook-square{background-color:#3C599F;}  
+
+ .fa-twitter,.social-icons .fa-twitter-square{background-color:#32CCFE;} 
+ .fa-envelope-o{
+background-color:#FCB019;
+}
+.fa-comments-o {background-color: #A11C3D;}
+.fa {
+	margin:5px;
+text-align:center;
+height:50px;
+width:50px;
+line-height:50px!important;
+border-radius:50%;
+}
+
+#shareButton a {
+    color: #ffffff;
+}
 /********* Fonts **********/
 
 

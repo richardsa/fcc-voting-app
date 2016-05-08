@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-   
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
 </head>
 
 
@@ -56,11 +57,13 @@
   </div>
   <div class="container">
     <div class="row">
-    <div class="col-md-8" id="pollInfo"></div>
+    <div class="col-md-8" id="pollOuter"><div class'row'><form action='/vote/api' method='post'><div id="pollInfo"></div><div id="pollEnding"><button type='submit' class='btn btn-primary'>Submit</button></form></div></div></div>
     <div class="col-md-4" id="pollChart"><div id="chart_div"></div></div>
     </div>
-    <div id="shareButton"></div>
-    <div id="deleteButton"></div>
+    <div class="row">
+    <span id="shareButton"></span>
+    <span id="deleteButton"></span>
+    </div>
    
   </div>
 

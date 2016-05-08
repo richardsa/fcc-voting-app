@@ -1,4 +1,5 @@
 'use strict';
+var path = process.cwd();
 var Users = require('../models/users.js');
 var Polls = require('../models/polls.js');
 var Counters = require('../models/counters.js');
@@ -17,7 +18,7 @@ function pollHandler() {
       }
 
       if (result) {
-        
+
         counterID = result["counterVal"];
         console.log("if result " + counterID);
 
@@ -30,8 +31,8 @@ function pollHandler() {
             throw err;
           }
           console.log(result);
-counterID = result["counterVal"];
-console.log(counterID);
+          counterID = result["counterVal"];
+          console.log(counterID);
 
         });
       }
@@ -50,7 +51,7 @@ console.log(counterID);
     }
     console.log("full object " + JSON.stringify(pollOptions2));
     console.log("counterid " + counterID);
-  
+
     Counters.collection.findAndModify({}, {
       '_id': 1
     }, {
@@ -67,13 +68,13 @@ console.log(counterID);
         pollOptions: pollOptions2,
         pollId: counterID,
         githubId: req.github.github.id,
-        
+
       });
       newDoc.save(function(err, doc) {
         if (err) {
           throw err;
         }
-  
+
         //res.json(doc);
         var x = JSON.stringify(doc);
         console.log(x);
@@ -81,9 +82,29 @@ console.log(counterID);
       })
       console.log('updated counterid ' + counterID);
     });
-      
-  
 
+
+
+  }
+
+  // delete poll function
+
+  this.deletePoll = function(req, res) {
+    console.log("params " + req.params);
+    var pollId = req.params.id;
+    var githubId = req.user.github.id
+    console.log(" poll id " + pollId + " git hubId" + githubId)
+ Polls.findOne({ pollId: pollId, githubId: githubId} , 
+  function (err,poll){
+    if (!err){
+      console.log(poll);
+      poll.remove( function(err){
+        res.send("poll deleted");
+      });
+    }
+})
+   
+    
   }
 
   this.getPolls = function(req, res) {
@@ -97,22 +118,24 @@ console.log(counterID);
         res.json(result);
       });
   };
- this.getProfilePolls = function(req, res) {
-  console.log(req);
-  Polls
-    .find({'githubId': req})
-    .lean().exec(function(err, result) {
-      if (err) {
-        throw err;
-      }
-     
-      res.json(result);
-    });
-};
+  this.getProfilePolls = function(req, res) {
+    console.log(req);
+    Polls
+      .find({
+        'githubId': req
+      })
+      .lean().exec(function(err, result) {
+        if (err) {
+          throw err;
+        }
 
-this.getDelete = function (req,res){
-  var githubId =  req.user.github.id
-   Polls
+        res.json(result);
+      });
+  };
+
+  this.getDelete = function(req, res) {
+    var githubId = req.user.github.id
+    Polls
       .find({
         'githubId': githubId
       }).select('pollId -_id')
@@ -123,17 +146,17 @@ this.getDelete = function (req,res){
         console.log("results " + JSON.stringify(result));
         res.json(result);
       });
-  
-}
+
+  }
 
   this.getPoll = function(req, res) {
-    
+
     //res.send("Both tables Cleared");
     console.log(req.params);
     var pollId = req.params.id;
     // pollId = mongoose.mongo.BSONPure.ObjectID.toHexString(pollId);
     //pollId = Polls.db.bson_serializer.ObjectID.createFromHexString(pollId);
-    
+
     Polls
       .findOne({
         'pollId': pollId
@@ -147,29 +170,45 @@ this.getDelete = function (req,res){
       });
   };
 
-  this.vote = function(req, res){
+  this.vote = function(req, res) {
     console.log(req);
     var pollId = req.pollID;
-    var option = 'pollOptions.' + req.optradio;
+    var options = req.optradio
+    console.log("options " + options)
+    console.log("options lenth " + options.length)
+    console.log(typeof options);
+    if (typeof options === 'string'){
+       var option = 'pollOptions.' + options.split('_').join(' ');
+    }
+    else if (options.length === 1 || options[1] === "" ) {
+      var option = 'pollOptions.' + options[0].split('_').join(' ');
+    } else {
+      var option = 'pollOptions.' + options[1].split('_').join(' ');
+    }
+    
     var voteOption = {};
     voteOption[option] = 1;
-    
+
     console.log(pollId + " " + JSON.stringify(voteOption));
     //var query = {};
     var test = 'pollId';
-   // query[name] = value;
-     Polls
+    // query[name] = value;
+    Polls
       .findOneAndUpdate({
         'pollId': pollId
-      }, {   $inc: voteOption } ,{'new': true})
+      }, {
+        $inc: voteOption
+      }, {
+        'new': true
+      })
       .exec(function(err, result) {
         if (err) {
           throw err;
         }
         console.log("results " + JSON.stringify(result));
-       // res.send(results.pollOptions);
+        // res.send(results.pollOptions);
       });
-    
+
   }
 
   this.getClicks = function(req, res) {
@@ -235,8 +274,8 @@ this.getDelete = function (req,res){
         res.send("Both tables Cleared");
       }
     });
-    
-     Counters.collection.update({}, {
+
+    Counters.collection.update({}, {
       'counterVal': 0
     }, function(err, result) {
       if (err) {
