@@ -51,32 +51,18 @@ module.exports = function(app, passport) {
     // vote on polls route
     app.route('/vote/api')
         .post(function(req, res) {
-
             var poll = '/polls/' + req.body.pollID;
-            console.log("ppoll " + poll);
             pollHandler.vote(req.body);
             res.redirect(poll);
         });
 
     app.route('/new-poll/api')
         .post(isLoggedIn, function(req, res) {
-            console.log(req.body);
             var x = req.body;
-            x['github'] = req.user;
-            console.log(x);
-            console.log(req.user)
+            x.github = req.user;
             pollHandler.addPoll(x);
             res.redirect('/new-poll');
-            //res.end(JSON.stringify(req.body))
-            //res.end("Your file size is " + req.body["poll-options"] + " bytes.");
         });
-    /*.get(isLoggedIn, function (req, res) {
-    	 var pollName = req.param('poll-name');
-    	 var pollOptions = req.param('poll-options').split(',');
-    	var x = req;
-    	console.log(pollName);
-    	res.send(pollOptions);
-    });*/
 
     app.route('/api/:id')
         .get(isLoggedIn, function(req, res) {
@@ -103,18 +89,6 @@ module.exports = function(app, passport) {
         .get(pollHandler.getPoll)
         .delete(isLoggedIn, pollHandler.deletePoll);
 
-/*app.route('/poll/:id')
-        .delete(isLoggedIn, function(req, res) {
-            console.log(req.params);
-            var pollId = req.params.id;
-            var x = req.body;
-            
-            console.log(req.user)
-            pollHandler.deletePoll
-           // res.redirect('/new-poll');
-            //res.end(JSON.stringify(req.body))
-            //res.end("Your file size is " + req.body["poll-options"] + " bytes.");
-        });*/
 
     app.route('/profile/polls')
         .get(isLoggedIn, pollHandler.getPolls);
@@ -126,6 +100,7 @@ module.exports = function(app, passport) {
         .get(pollHandler.getPolls)
         .post(isLoggedIn, clickHandler.addClick)
         .delete(isLoggedIn, clickHandler.resetClicks);
+    /* quick and dirty table clearing    
     app.route('/testing')
-        .get(pollHandler.getDrop)
+        .get(pollHandler.getDrop)*/
 };
